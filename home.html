@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Home</title>
+    <link rel="stylesheet" href="style home.css">
+    <style>
+        body { opacity: 0; transform: translateX(50px); transition: opacity 0.5s ease-out, transform 0.5s ease-out; overflow-x: hidden; }
+        body.fade-in { opacity: 1; transform: translateX(0); }
+        body.slide-out { opacity: 0; transform: translateX(-50px); }
+    </style>
+</head>
+<body>
+<div class="bg-hearts" id="bg-hearts"></div>
+    <div class="hero-section">
+        <div class="countdown">
+            <div class="time-box"><span id="days">00</span><p>Days</p></div>
+            <div class="time-box"><span id="hours">00</span><p>Hours</p></div>
+            <div class="time-box"><span id="mins">00</span><p>Mins</p></div>
+            <div class="time-box"><span id="secs">00</span><p>Secs</p></div>
+        </div>
+    <div id="bg-layer-1" class="bg-slide"></div>
+    <div id="bg-layer-2" class="bg-slide"></div>
+    </div>
+
+    <!-- Elemen untuk Efek Surprise -->
+    <canvas id="fireworks"></canvas>
+    <div id="surpriseOverlay" class="surprise-overlay">
+        <div id="giftBox" class="gift-box">🎁</div>
+        <div id="cakeContainer" class="cake-container">
+            <img src="https://cdn-icons-png.flaticon.com/512/4525/4525686.png" alt="Birthday Cake" style="width: 150px;">
+            <h2>Make a Wish! 🎂</h2>
+            <button id="openLetterBtn" class="cta-btn" style="display: none; margin-top: 15px;" onclick="navigateTo('wish.html')">Make a Wish ✨</button>
+        </div>
+    </div>
+
+    <script src="script home.js"></script>
+    <script src="script surprise.js"></script>
+    <script>
+        const clickSound = new Audio('click.mp3');
+        document.querySelectorAll('button, .cta-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                clickSound.currentTime = 0;
+                clickSound.play().catch(e => console.log("Audio play failed:", e));
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add("fade-in");
+        });
+        function navigateTo(url) {
+            document.body.classList.remove("fade-in");
+            document.body.classList.add("slide-out");
+            setTimeout(() => { window.location.href = url; }, 500);
+        }
+    </script>
+</body>
+</html>

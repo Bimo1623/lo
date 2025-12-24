@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Wish</title>
+    <link rel="stylesheet" href="style wish.css">
+    <style>
+        body { opacity: 0; transform: translateX(50px); transition: opacity 0.5s ease-out, transform 0.5s ease-out; overflow-x: hidden; }
+        body.fade-in { opacity: 1; transform: translateX(0); }
+        body.slide-out { opacity: 0; transform: translateX(-50px); }
+    </style>
+</head>
+<body>
+    <div class="guestbook-section">
+        <h2 class="hero-title">Leave Your Wishes 💌</h2>
+        <form id="wish-form">
+            <input type="text" id="guest-name" placeholder="Your Name" required>
+            <textarea id="guest-message" placeholder="Write your birthday wish here..." required></textarea>
+            <button type="submit" class="cta-btn">Send Wish</button>
+        </form>
+        <div id="wishes-display" class="wishes-grid">
+            <!-- Wishes will be displayed here by JavaScript -->
+        </div>
+        <br>
+        <button class="cta-btn" style="background: #aaa;" onclick="navigateTo('home.html')">Back to Home</button>
+        <button class="cta-btn" onclick="navigateTo('envelope.html')">Next: Open Letter 💌</button>
+    </div>
+    <script src="script wish.js"></script>
+    <script>
+        const clickSound = new Audio('click.mp3');
+        document.querySelectorAll('button, .cta-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                clickSound.currentTime = 0;
+                clickSound.play().catch(e => console.log("Audio play failed:", e));
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add("fade-in");
+        });
+        function navigateTo(url) {
+            document.body.classList.remove("fade-in");
+            document.body.classList.add("slide-out");
+            setTimeout(() => { window.location.href = url; }, 500);
+        }
+    </script>
+</body>
+</html>

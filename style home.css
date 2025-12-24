@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Dancing+Script:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+:root {
+    --pink: #ff69b4;
+    --dark-pink: #f08080;
+    --bg-grad: linear-gradient(135deg, #ffb6c1 0%, #e6e6fa 100%);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    color: #333;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    /* Properti untuk transisi fade */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+
+/* Layer Background dengan Blur */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gunakan animasi slideshow di sini */
+    animation: photoSlideshow 3s ease-in-out infinite;
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px); /* Mengatur tingkat blur */
+    transform: scale(1.1); /* Menghindari garis putih di pinggir karena blur */
+    z-index: -2;
+}
+
+
+/* Responsif: Jika dibuka di HP akan menjadi 1 kolom */
+@media (max-width: 768px) {
+    .photo-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.photo-card { 
+    background: rgba(255, 255, 255, 0.8); /* Semi transparan agar efek blur tembus */
+    padding: 15px; 
+    border-radius: 15px; 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
+    transition: transform 0.4s ease, box-shadow 0.4s ease; 
+    backdrop-filter: blur(5px);
+}
+
+.photo-card:hover { 
+    transform: translateY(-10px) scale(1.02); 
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+/* Layer Overlay Gradasi agar teks tetap terbaca */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Overlay putih tipis */
+    z-index: -1;
+}
+
+@keyframes photoSlideshow {
+    0%{ background-image: url('1.jpg'); }
+    20% { background-image: url('2.jpg'); }
+    40% { background-image: url('3.jpg'); }
+    60% { background-image: url('4.jpg'); }
+    80% { background-image: url('5.jpg'); }
+}
+
+body.fade-in {
+    opacity: 1;
+}
+
+body.fade-out {
+    opacity: 0;
+}
+
+/* Navigation */
+nav {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    text-align: center;
+}
+nav a {
+    text-decoration: none;
+    margin: 0 15px;
+    color: #ff1493;
+    font-weight: 600;
+    transition: 0.3s;
+}
+nav a.active { border-bottom: 2px solid #ff1493; }
+
+/* Home & Gallery UI */
+.hero-section { 
+    padding: 50px 20px; 
+    text-align: center; 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+.hero-title { font-family: 'Dancing Script', cursive; font-size: 4em; color: white; text-shadow: 2px 2px 10px rgba(0,0,0,0.1); }
+
+.countdown { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
+.time-box { background: white; padding: 15px; border-radius: 10px; min-width: 70px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: pulse 1s infinite; }
+.time-box span { font-size: 1.8em; font-weight: bold; color: var(--pink); display: block; font-family: 'Orbitron', sans-serif; }
+
+.photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 40px; }
+.photo-card { background: white; padding: 10px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; }
+.photo-card:hover { transform: translateY(-5px); }
+.photo-card img { width: 100%; border-radius: 5px; }
+
+.cta-btn { background: var(--pink); color: white; border: none; padding: 12px 25px; border-radius: 30px; cursor: pointer; font-size: 1em; margin-top: 20px; transition: 0.3s; }
+
+.bg-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.floating-heart {
+    position: absolute;
+    color: rgba(255, 105, 180, 0.3); /* Warna pink transparan */
+    animation: floatBackground 10s linear infinite;
+    user-select: none;
+    pointer-events: none;
+}
+
+@keyframes floatBackground {
+    0% { 
+        transform: translateY(105vh) rotate(0deg); 
+        opacity: 0; 
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(-10vh) rotate(360deg); 
+        opacity: 0; 
+    }
+
+
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+.bg-slide {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px); /* Efek blur yang kamu inginkan */
+    transform: scale(1.1);
+    transition: opacity 2s ease-in-out; /* Transisi halus di sini */
+    z-index: -2;
+}
+
+#bg-layer-1 { opacity: 1; }
+#bg-layer-2 { opacity: 0; }
+
+/* Overlay agar konten tetap jelas */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    z-index: -1;
+}
+/* --- SURPRISE & FIREWORKS STYLES --- */
+canvas#fireworks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1999;
+}
+
+.surprise-overlay {
+    display: none; /* Disembunyikan sampai timer habis */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.surprise-overlay.show {
+    display: flex;
+    opacity: 1;
+}
+
+.gift-box {
+    font-size: 8rem;
+    cursor: pointer;
+    animation: wiggle 2s infinite;
+    transition: transform 0.3s;
+}
+
+.gift-box:hover { transform: scale(1.1); }
+
+@keyframes wiggle {
+    0%, 7% { transform: rotateZ(0); }
+    15% { transform: rotateZ(-15deg); }
+    20% { transform: rotateZ(10deg); }
+    25% { transform: rotateZ(-10deg); }
+    30% { transform: rotateZ(6deg); }
+    35% { transform: rotateZ(-4deg); }
+    40%, 100% { transform: rotateZ(0); }
+}
+
+.cake-container {
+    display: none;
+    text-align: center;
+    animation: zoom 0.6s;
+}
+.cake-container img {
+    max-width: 300px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+    margin-bottom: 15px;
+}
+.cake-container h2 {
+    font-family: 'Dancing Script', cursive;
+    color: white;
+    font-size: 3em;
+}

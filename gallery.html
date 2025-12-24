@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Gallery</title>
+    <link rel="stylesheet" href="style gallery.css">
+    <style>
+        body { opacity: 0; transform: translateX(50px); transition: opacity 0.5s ease-out, transform 0.5s ease-out; overflow-x: hidden; }
+        body.fade-in { opacity: 1; transform: translateX(0); }
+        body.slide-out { opacity: 0; transform: translateX(-50px); }
+    </style>
+</head>
+<body>
+   
+    <div class="gallery-container">
+    <h2 class="hero-title">Our Memories 📸</h2>
+    
+    <div class="photo-grid">
+        <!-- Foto 1-60 akan di-generate otomatis oleh script gallery.js -->
+    </div>
+
+    <div class="pagination">
+        <button class="cta-btn" style="background: #aaa;" onclick="navigateTo('envelope.html')">Back to Letter</button>
+        <button class="cta-btn" onclick="navigateTo('home.html')">Back to Home 🏠</button>
+    </div>
+</div>
+
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" title="Go to top">↑</button>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-btn">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+    <script src="script gallery.js"></script>
+    <script>
+        const clickSound = new Audio('click.mp3');
+        document.querySelectorAll('button, .cta-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                clickSound.currentTime = 0;
+                clickSound.play().catch(e => console.log("Audio play failed:", e));
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add("fade-in");
+        });
+        function navigateTo(url) {
+            document.body.classList.remove("fade-in");
+            document.body.classList.add("slide-out");
+            setTimeout(() => { window.location.href = url; }, 500);
+        }
+    </script>
+</body>
+</html>
